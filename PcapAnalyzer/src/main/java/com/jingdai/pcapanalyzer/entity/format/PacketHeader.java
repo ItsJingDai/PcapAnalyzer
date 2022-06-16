@@ -1,7 +1,7 @@
 package com.jingdai.pcapanalyzer.entity.format;
 
 /**
- * Pcap 数据包头
+ * Pcap Packet Header
  */
 public class PacketHeader {
 	

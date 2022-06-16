@@ -1,7 +1,7 @@
 package com.jingdai.pcapanalyzer.entity.format;
 
 /**
- * 帧头（Ethernet Header）
+ * Frame Header(Ethernet Header)
  */
 
 public class FrameHeader {

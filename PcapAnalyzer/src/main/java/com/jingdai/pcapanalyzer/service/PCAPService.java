@@ -38,7 +38,7 @@ public class PCAPService {
 
             while (fis.read(packetHeaderBuffer) > 0) {
                 // 解析 Packet Header
-                PacketHeader packetHeader = parsePacketHeader(packetHeaderBuffer);
+                PacketHeader packetHeader = parsePacketHeader(packetHeaderBuffer, GlobalHeader.isLittleEndian(globalHeader.getMagic()));
                 packetDataBuffer = new byte[packetHeader.getCapLen()];
                 if (fis.read(packetDataBuffer) != packetHeader.getCapLen()) {
                     System.out.println("The Pcap file is broken!");
@@ -70,8 +70,9 @@ public class PCAPService {
         byte[] linkTypeBuffer = Arrays.copyOfRange(globalHeaderBuffer, 20, 24);
 
         int magic = DataUtils.byteArray2Int(magicBuffer, 4);
-
-        DataUtils.reverseByteArray(linkTypeBuffer);
+        if (GlobalHeader.isLittleEndian(magic)) {
+            DataUtils.reverseByteArray(linkTypeBuffer);
+        }
         int linkType = DataUtils.byteArray2Int(linkTypeBuffer, 4);
         globalHeader.setMagic(magic);
         globalHeader.setLinkType(linkType);
@@ -82,7 +83,7 @@ public class PCAPService {
     /**
      *  解析Packet Header
      */
-    private PacketHeader parsePacketHeader(byte[] dataHeaderBuffer){
+    private PacketHeader parsePacketHeader(byte[] dataHeaderBuffer, boolean isLittleEndian){
 
         byte[] timeSBuffer = Arrays.copyOfRange(dataHeaderBuffer, 0, 4);
         byte[] timeMsBuffer = Arrays.copyOfRange(dataHeaderBuffer, 4, 8);
@@ -91,10 +92,12 @@ public class PCAPService {
 
         PacketHeader packetHeader = new PacketHeader();
 
-        DataUtils.reverseByteArray(timeSBuffer);
-        DataUtils.reverseByteArray(timeMsBuffer);
-        DataUtils.reverseByteArray(capLenBuffer);
-        DataUtils.reverseByteArray(lenBuffer);
+        if (isLittleEndian) {
+            DataUtils.reverseByteArray(timeSBuffer);
+            DataUtils.reverseByteArray(timeMsBuffer);
+            DataUtils.reverseByteArray(capLenBuffer);
+            DataUtils.reverseByteArray(lenBuffer);
+        }
 
         int timeS = DataUtils.byteArray2Int(timeSBuffer, 4);
         int timeMs = DataUtils.byteArray2Int(timeMsBuffer, 4);
