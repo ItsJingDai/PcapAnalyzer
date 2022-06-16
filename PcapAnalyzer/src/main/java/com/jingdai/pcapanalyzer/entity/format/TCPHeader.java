@@ -1,22 +1,24 @@
 package com.jingdai.pcapanalyzer.entity.format;
 
 /**
- * TCP °üÍ·£º20 ×Ö½Ú
+ * TCP headerï¼š20 Byte
  */
 public class TCPHeader {
 	
 	/**
-	 * Ô´¶Ë¿Ú£¨2 ×Ö½Ú£©
+	 * source port(2 Byte)
 	 */
 	private int srcPort;
 	
 	/**
-	 * Ä¿µÄ¶Ë¿Ú£¨2 ×Ö½Ú£©
+	 * destination port(2 Byte)
 	 */
 	private int dstPort;
 	
 	/**
-	 * Êý¾Ý±¨Í·µÄ³¤¶È(4 bit) + ±£Áô(4 bit) = 1 byte
+	 * datagram 4 bit
+	 * reserve 4 bit
+	 * total 1 Byte
 	 */
 	private int headerLen;
 

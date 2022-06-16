@@ -3,7 +3,7 @@ package com.jingdai.pcapanalyzer.entity.format;
 import com.jingdai.pcapanalyzer.utils.IPUtils;
 
 /**
- * IP 数据报头
+ * IP Header
  */
 public class IPHeader {
 
@@ -11,27 +11,27 @@ public class IPHeader {
     public static final int PROTOCOL_UDP = 17;
 
     /**
-     * 首部长度
+     * head
      */
     private int headerLen;
 
     /**
-     * 总长度（2 字节）
+     * total len(2 Byte)
      */
     private int totalLen;
 
     /**
-     * 协议类型（1 字节）
+     * protocol 1 Byte
      */
     private int protocol;
 
     /**
-     * 源 IP（4 字节）
+     * source IP(4 Byte)
      */
     private int srcIP;
 
     /**
-     * 目的 IP（4 字节）
+     * destination IP(4 Byte)
      */
     private int dstIP;
 

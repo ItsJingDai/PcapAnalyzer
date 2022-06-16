@@ -1,11 +1,15 @@
 package com.jingdai.pcapanalyzer.entity.format;
 
 /**
- * GlobalHeader 文件头结构
+ * GlobalHeader pcap header
  */
 public class GlobalHeader {
 
 	public static final int LINK_TYPE_ETHERNET = 1;
+
+	public static final int ENDIAN_TYPE_UNKNOWN = 0;
+	public static final int ENDIAN_TYPE_BIG = 1;
+	public static final int ENDIAN_TYPE_LITTLE = 2;
 
 	private int magic;
 	private int linkType;
@@ -34,5 +38,12 @@ public class GlobalHeader {
 				"magic=" + magic +
 				", linkType=" + linkType +
 				'}';
+	}
+
+	public static boolean isLittleEndian(int magic) {
+		if (magic == 0xd4c3b2a1) {
+			return true;
+		}
+		return false;
 	}
 }
